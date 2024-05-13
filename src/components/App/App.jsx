@@ -1,7 +1,8 @@
-//import { useState } from 'react'
 import './App.css'
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 
-export default function App() {
+ export default function App() {
   
   return (
     <>
@@ -9,5 +10,6 @@ export default function App() {
     </>
   )
 }
+
 
 
