@@ -49,6 +49,18 @@ export default function App() {
   return (
     <>
       <SearchBar onSearch={handleSearch} />
+      {error && <ErrorMessage />}
+      {cards.length > 0 && <ImageGallery cards={cards} />}
+      {loading && <Loader />}
+      {cards.length > 0 && !loading && (
+        <LoadMoreBtn onLoadMore={handleLoadMore} />
+      )}  
+    </>
+  )
+}
+
+{/* <>
+      <SearchBar onSearch={handleSearch} />
       {loading ? (
         <Loader />
       ) : error ? ( // Перевірка стану помилки
@@ -58,9 +70,4 @@ export default function App() {
       )}
       {cards.length > 0 && <LoadMoreBtn onLoadMore={handleLoadMore} />}
      
-    </>
-  )
-}
-
-
-
+    </> */}

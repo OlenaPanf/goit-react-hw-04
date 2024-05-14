@@ -5,3 +5,4 @@ export default function LoadMoreBtn({ onLoadMore }) {
     <button onClick={onLoadMore}>Load more</button>
   );
 }
+
