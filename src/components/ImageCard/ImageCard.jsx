@@ -1,7 +1,7 @@
 
 
 export default function ImageCard({
-  card: { likes, description, user : {name} , urls : {regular, small} },
+  card: { likes, description, user: {name} , urls: {regular, small} },
 }) {
   
   return (

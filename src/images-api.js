@@ -9,7 +9,6 @@ export const fetchImagesWithParams = async (keyword, currentPage) => {
     query: keyword,
     page: currentPage,
     per_page: 12,
-    orientation: 'horizontal',
   };
 
   const response = await axios.get('/search/photos', { params });
