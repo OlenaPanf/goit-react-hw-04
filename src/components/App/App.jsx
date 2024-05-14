@@ -1,6 +1,5 @@
 import './App.css'
 import { useState } from "react";
-// import axios from "axios";
 import { fetchImagesWithParams } from "../../images-api";
 import ImageGallery from '../ImageGallery/ImageGallery'
 import Loader from '../Loader/Loader'
