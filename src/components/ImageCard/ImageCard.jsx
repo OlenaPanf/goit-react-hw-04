@@ -14,8 +14,7 @@ export default function ImageCard({
           />
           <p>{name}</p>
           <p>{likes}</p>
-
-</div>
+      </div>
   );
 }
 

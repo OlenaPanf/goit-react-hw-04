@@ -12,3 +12,4 @@ export default function ImageGallery({ cards }) {
   );
 }
 
+// ImageCard або модальне вікно огорнути в тег <a></a>

@@ -1,32 +1,50 @@
 import './App.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchImagesWithParams } from "../../images-api";
 import ImageGallery from '../ImageGallery/ImageGallery'
 import Loader from '../Loader/Loader'
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { SearchBar } from "../SearchBar/SearchBar";
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn'
 
 export default function App() {
-   // 3. Оголошуємо стан
+  
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false); // Додано стан помилки
+  const [error, setError] = useState(false); 
+  const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      return;
+    }
+
+    async function fetchImages() {
+      try {
+        setLoading(true);
+        setError(false);
+        const data = await fetchImagesWithParams(searchQuery, page);
+        setCards((prevState) => [...prevState, ...data]);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchImages();
+  }, [page, searchQuery]);
 
   const handleSearch = async (keyword) => {
-    try {
-	setCards([]);
-	setError(false);
-      setLoading(true);
-      const data = await fetchImagesWithParams(keyword);
-      setCards(data);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
+    setSearchQuery(keyword);
+    setPage(1);
+    setCards([]);    
   };
 
-  
+  const handleLoadMore = async () => {
+    setPage(page + 1);
+  };
   
   return (
     <>
@@ -38,6 +56,7 @@ export default function App() {
       ) : (
         cards.length > 0 && <ImageGallery cards={cards} />
       )}
+      {cards.length > 0 && <LoadMoreBtn onLoadMore={handleLoadMore} />}
      
     </>
   )
