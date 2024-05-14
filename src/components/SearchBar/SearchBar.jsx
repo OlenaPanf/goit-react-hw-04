@@ -1,39 +1,33 @@
 export const SearchBar = ({ onSearch }) => {
   
-	const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const form = evt.target;
-        const topic = form.elements.topic.value;
+	const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const keyword = form.elements.keyword.value;
         
-// Якщо текстове поле порожнє, виводимо повідомлення 
-		// і припиняємо виконання функції.
-		if(form.elements.topic.value.trim() === "") {
-			alert("Please enter search term!")
-			return;
-		}
-// У протилежному випадку викликаємо пропс
-        // і передаємо йому значення поля
-        
-    onSearch(topic);
+    // Якщо текстове поле порожнє, виводимо повідомлення і припиняємо виконання функції.
+    if(keyword.trim() === "") {
+        alert("Please enter search term!")
+        return;
+    }
+    
+    // У протилежному випадку викликаємо пропс і передаємо йому значення поля
+    onSearch(keyword);
     form.reset();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="topic" placeholder="Search articles..." />
-      <button>Search</button>
-    </form>
-  );
+        <header>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="keyword"
+                    autoComplete="off"
+                    autoFocus
+                    placeholder="Search images and photos"
+                />
+                <button type="submit">Search</button>
+            </form>
+        </header>
+    );
 };
-
-// <header>
-//   <form>
-//     <input
-//       type="text"
-//       autocomplete="off"
-//       autofocus
-//       placeholder="Search images and photos"
-//     />
-//     <button type="submit">Search</button>
-//   </form>
-// </header>
