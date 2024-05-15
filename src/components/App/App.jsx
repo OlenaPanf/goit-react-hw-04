@@ -47,7 +47,7 @@ export default function App() {
   };
   
   return (
-    <>
+    <div className="container">
       <SearchBar onSearch={handleSearch} />
       {error && <ErrorMessage />}
       {cards.length > 0 && <ImageGallery cards={cards} />}
@@ -55,7 +55,7 @@ export default function App() {
       {cards.length > 0 && !loading && (
         <LoadMoreBtn onLoadMore={handleLoadMore} />
       )}  
-    </>
+    </div>
   )
 }
 

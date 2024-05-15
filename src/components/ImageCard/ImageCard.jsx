@@ -1,19 +1,19 @@
-
+import css from './ImageCard.module.css'
 
 export default function ImageCard({
-  card: { likes, user: {name}, urls: {small} },
+  card: { urls: {small} },
 }) {
   
   return (
-      <div>
-          <img
+      <div className={css.container}>
+      <img
+        className={css.img}
              src={small}
              alt=""
              width="360"
              height="200"
+             
           />
-          <p>{name}</p>
-          <p>{likes}</p>
       </div>
   );
 }
