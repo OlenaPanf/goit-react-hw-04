@@ -17,6 +17,7 @@ export default function App() {
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
+      setLoading(false);
       return;
     }
 
