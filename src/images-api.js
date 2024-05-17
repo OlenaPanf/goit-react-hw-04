@@ -12,5 +12,8 @@ export const fetchImagesWithParams = async (keyword, currentPage) => {
   };
 
   const response = await axios.get('/search/photos', { params });
-  return response.data.results;
+  return {
+    results: response.data.results,
+    totalPages: response.data.total_pages,
+  };
 };

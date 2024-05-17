@@ -6,6 +6,7 @@ import Loader from '../Loader/Loader'
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { SearchBar } from "../SearchBar/SearchBar";
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn'
+//import ImageModal from '../ImageModal/ImageModal';
 
 export default function App() {
   
@@ -14,7 +15,9 @@ export default function App() {
   const [error, setError] = useState(false); 
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [totalPages, setTotalPages] = useState(0);
+  
+  
   useEffect(() => {
     if (searchQuery.trim() === "") {
       setLoading(false);
@@ -25,8 +28,9 @@ export default function App() {
       try {
         setLoading(true);
         setError(false);
-        const data = await fetchImagesWithParams(searchQuery, page);
-        setCards((prevState) => [...prevState, ...data]);
+        const { results, totalPages }  = await fetchImagesWithParams(searchQuery, page);
+        setTotalPages(totalPages);
+        setCards((prevState) => [...prevState, ...results]);
       } catch (error) {
         setError(true);
       } finally {
@@ -40,12 +44,15 @@ export default function App() {
   const handleSearch = async (keyword) => {
     setSearchQuery(keyword);
     setPage(1);
-    setCards([]);    
+    setCards([]);
   };
 
   const handleLoadMore = async () => {
-    setPage(page + 1);
+      if (page < totalPages) {
+      setPage(page + 1);
+    }
   };
+
   
   return (
     <div className="container">
@@ -53,22 +60,14 @@ export default function App() {
       {error && <ErrorMessage />}
       {cards.length > 0 && <ImageGallery cards={cards} />}
       {loading && <Loader />}
-      {cards.length > 0 && !loading && (
+      {/* <div>page {page}</div>
+      <div>totalPages {totalPages}</div>
+      <div>cards.length {cards.length}</div> */}
+      {page < totalPages && cards.length > 0 && !loading && (
         <LoadMoreBtn onLoadMore={handleLoadMore} />
-      )}  
+      )}
     </div>
   )
 }
 
-{/* <>
-      <SearchBar onSearch={handleSearch} />
-      {loading ? (
-        <Loader />
-      ) : error ? ( // Перевірка стану помилки
-        <ErrorMessage />
-      ) : (
-        cards.length > 0 && <ImageGallery cards={cards} />
-      )}
-      {cards.length > 0 && <LoadMoreBtn onLoadMore={handleLoadMore} />}
-     
-    </> */}
+
