@@ -6,7 +6,7 @@ import Loader from '../Loader/Loader'
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { SearchBar } from "../SearchBar/SearchBar";
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn'
-//import ImageModal from '../ImageModal/ImageModal';
+import ImageModal from '../ImageModal/ImageModal';
 
 export default function App() {
   
@@ -16,7 +16,7 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-  
+  const [selectedCard, setSelectedCard] = useState(null);
   
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -53,18 +53,32 @@ export default function App() {
     }
   };
 
+  const handleCardClick = (id) => {
+    const card = cards.find(card => card.id === id);
+    setSelectedCard(card);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCard(null);
+  };
   
   return (
     <div className="container">
       <SearchBar onSearch={handleSearch} />
       {error && <ErrorMessage />}
-      {cards.length > 0 && <ImageGallery cards={cards} />}
+      {cards.length > 0 && <ImageGallery cards={cards} onCardClick={handleCardClick} />}
       {loading && <Loader />}
-      {/* <div>page {page}</div>
-      <div>totalPages {totalPages}</div>
-      <div>cards.length {cards.length}</div> */}
       {page < totalPages && cards.length > 0 && !loading && (
         <LoadMoreBtn onLoadMore={handleLoadMore} />
+      )}
+      {selectedCard && (
+        <ImageModal
+          isOpen={!!selectedCard}
+          likes={selectedCard.likes}
+          user={selectedCard.user}
+          urls={selectedCard.urls}
+          onClose={handleCloseModal}
+        />
       )}
     </div>
   )
