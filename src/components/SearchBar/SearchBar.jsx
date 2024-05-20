@@ -1,4 +1,5 @@
 import css from './SearchBar.module.css'
+import { toast } from 'react-hot-toast';
 
 export const SearchBar = ({ onSearch }) => {
   
@@ -9,7 +10,7 @@ export const SearchBar = ({ onSearch }) => {
         
     // Якщо текстове поле порожнє, виводимо повідомлення і припиняємо виконання функції.
     if(keyword.trim() === "") {
-        alert("Please enter search term!")
+        toast.error("Please enter search term!");
         return;
     }
     

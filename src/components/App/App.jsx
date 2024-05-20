@@ -7,6 +7,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { SearchBar } from "../SearchBar/SearchBar";
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn'
 import ImageModal from '../ImageModal/ImageModal';
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   
@@ -64,6 +65,7 @@ export default function App() {
   
   return (
     <div className="container">
+      <Toaster />
       <SearchBar onSearch={handleSearch} />
       {error && <ErrorMessage />}
       {cards.length > 0 && <ImageGallery cards={cards} onCardClick={handleCardClick} />}
