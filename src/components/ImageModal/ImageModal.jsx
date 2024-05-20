@@ -1,4 +1,5 @@
 import ReactModal from 'react-modal';
+import css from './ImageModal.module.css'
 
 export default function ImageModal({ isOpen, likes, user: { name }, urls: { regular }, onClose }) {
   return (
@@ -21,9 +22,9 @@ export default function ImageModal({ isOpen, likes, user: { name }, urls: { regu
         }
       }}
     >
-      <img src={regular} alt="large image" width="1080" height="600" />
-      <p><span>Author: </span><span>{name}</span></p>
-      <p><span>Likes: </span><span>{likes}</span></p>
+      <img className={css.img} src={regular} alt="large image" width="1080" height="600" />
+      <p><span>Author: </span><span className={css.accent}>{name}</span></p>
+      <p><span>Likes: </span><span className={css.accent}>{likes}</span></p>
     </ReactModal>
   );
 }
